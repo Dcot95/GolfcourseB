@@ -13,15 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GolfcourseB"
         tools:targetApi="31">
+
         <activity
-            android:name="ie.wit.golfcourseb.activities.Played"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name="ie.wit.golfcourseb.activities.Course"
+            android:name="ie.wit.golfcourseb.activities.Home"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -14,4 +14,12 @@
     <string name="enter_amount">Enter Amount</string>
     <string name="action_course">Course</string>
     <string name="action_played">Played</string>
+
+    <string name="action_share">Share</string>
+    <string name="action_send">Send</string>
+    <string name="group_communicate">Communicate</string>
+
+    <string name="nav_header_title">GolfcourseB</string>
+    <string name="nav_header_subtitle">voteforhomer@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
 </resources>
