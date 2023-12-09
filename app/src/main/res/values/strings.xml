@@ -22,4 +22,17 @@
     <string name="nav_header_title">GolfcourseB</string>
     <string name="nav_header_subtitle">voteforhomer@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
+
+    <string name="action_about">About Us</string>
+    <string name="aboutus_title">Homer for President !!</string>
+    <string name="aboutus_message">Hi, I\'m Homer\n\nPlease vote for me.\n\n Please Please Please Please!!</string>
+
+    <string name="golfcoursesNotFound">No Golfcourses Yet…\nGo Make a Golfcourse!</string>
+    <string name="golfcourseError">Error : Couldn\'t Make a Golfcourse…</string>
+    <string name="golfcourseDetails">Golfcourse Details</string>
+
+    <string name="amt">Amount :</string>
+    <string name="payment">Payment :</string>
+    <string name="message">Message :</string>
+    <string name="upvotes">UpVotes :</string>
 </resources>

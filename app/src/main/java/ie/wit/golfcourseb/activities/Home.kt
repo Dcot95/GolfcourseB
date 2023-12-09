@@ -13,6 +13,7 @@ class Home : AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var homeBinding : HomeBinding
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,13 +25,21 @@ class Home : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment)
-        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
+
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+
+        appBarConfiguration = AppBarConfiguration(setOf(
+            R.id.courseFragment, R.id.playedFragment, R.id.aboutFragment), drawerLayout)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+
         val navView = homeBinding.navView
         navView.setupWithNavController(navController)
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
-        return NavigationUI.navigateUp(navController, drawerLayout)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }
