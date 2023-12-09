@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/courseFragment">
+    app:startDestination="@id/playedFragment">
 
     <fragment
         android:id="@+id/courseFragment"
-        android:name="ie.wit.golfcourseb.fragments.CourseFragment"
+        android:name="ie.wit.golfcourseb.ui.course.CourseFragment"
         android:label="@string/action_course"
         tools:layout="@layout/fragment_course" >
         <action
@@ -18,13 +18,35 @@
     </fragment>
     <fragment
         android:id="@+id/playedFragment"
-        android:name="ie.wit.golfcourseb.fragments.PlayedFragment"
+        android:name="ie.wit.golfcourseb.ui.played.PlayedFragment"
         android:label="@string/action_played"
         tools:layout="@layout/fragment_played" >
         <action
             android:id="@+id/action_playedFragment_to_courseFragment"
             app:destination="@id/courseFragment"
+            app:popUpTo="@id/main_navigation"
+            app:popUpToInclusive="true"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_playedFragment_to_golfcourseDetailFragment"
+            app:destination="@id/golfcourseDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="ie.wit.golfcourseb.ui.about.AboutFragment"
+        android:label="@string/action_about"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/golfcourseDetailFragment"
+        android:name="ie.wit.golfcourseb.ui.detail.GolfcourseDetailFragment"
+        android:label="Golfcourse Detail"
+        tools:layout="@layout/fragment_golfcourse_detail" >
+        <action
+            android:id="@+id/action_golfcourseDetailFragment_to_playedFragment"
+            app:destination="@id/playedFragment" />
+        <argument
+            android:name="golfcourseid"
+            app:argType="long" />
     </fragment>
 </navigation>

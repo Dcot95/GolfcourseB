@@ -9,9 +9,9 @@ internal fun getId(): Long {
     return lastId++
 }
 
-class GolfcourseMemStore : GolfcourseStore {
+object GolfcourseManager : GolfcourseStore {
 
-    val golfcourses = ArrayList<GolfcourseModel>()
+    private val golfcourses = ArrayList<GolfcourseModel>()
 
     override fun findAll(): List<GolfcourseModel> {
         return golfcourses
