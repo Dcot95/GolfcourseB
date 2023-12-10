@@ -11,8 +11,8 @@ interface GolfcourseClickListener {
     fun onGolfcourseClick(golfcourse: GolfcourseModel)
 }
 
-class GolfcourseAdapter constructor(private var golfcourses: List<GolfcourseModel>,
-                                  private val listener: GolfcourseClickListener)
+class GolfcourseAdapter constructor(private var golfcourses: ArrayList<GolfcourseModel>,
+                                    private val listener: GolfcourseClickListener)
     : RecyclerView.Adapter<GolfcourseAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
@@ -27,14 +27,18 @@ class GolfcourseAdapter constructor(private var golfcourses: List<GolfcourseMode
         holder.bind(golfcourse,listener)
     }
 
+    fun removeAt(position: Int) {
+        golfcourses.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
     override fun getItemCount(): Int = golfcourses.size
 
-    inner class MainHolder(val binding : CardGolfcourseBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MainHolder(val binding : CardGolfcourseBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(golfcourse: GolfcourseModel, listener: GolfcourseClickListener) {
-//            binding.paymentamount.text = golfcourse.amount.toString()
-//            binding.paymentmethod.text = golfcourse.paymentmethod
-
+            binding.root.tag = golfcourse
             binding.golfcourse = golfcourse
             binding.imageIcon.setImageResource(R.mipmap.ic_launcher_round)
             binding.root.setOnClickListener { listener.onGolfcourseClick(golfcourse) }

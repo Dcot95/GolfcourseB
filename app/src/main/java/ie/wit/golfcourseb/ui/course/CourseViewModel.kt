@@ -3,7 +3,8 @@ package ie.wit.golfcourseb.ui.course
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ie.wit.golfcourseb.models.GolfcourseManager
+import com.google.firebase.auth.FirebaseUser
+import ie.wit.golfcourseb.firebase.FirebaseDBManager
 import ie.wit.golfcourseb.models.GolfcourseModel
 
 class CourseViewModel  : ViewModel() {
@@ -13,9 +14,10 @@ class CourseViewModel  : ViewModel() {
     val observableStatus: LiveData<Boolean>
         get() = status
 
-    fun addGolfcourse(golfcourse: GolfcourseModel) {
+    fun addGolfcourse(firebaseUser: MutableLiveData<FirebaseUser>,
+                    golfcourse: GolfcourseModel) {
         status.value = try {
-            GolfcourseManager.create(golfcourse)
+            FirebaseDBManager.create(firebaseUser,golfcourse)
             true
         } catch (e: IllegalArgumentException) {
             false

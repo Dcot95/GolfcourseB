@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,23 +20,27 @@ import androidx.navigation.ui.NavigationUI
 import ie.wit.golfcourseb.R
 import ie.wit.golfcourseb.databinding.FragmentCourseBinding
 import ie.wit.golfcourseb.models.GolfcourseModel
+import ie.wit.golfcourseb.ui.auth.LoggedInViewModel
 import ie.wit.golfcourseb.ui.played.PlayedViewModel
 
 class CourseFragment : Fragment() {
 
-    //lateinit var app: GolfcourseBApp
     var totalCoursed = 0
     private var _fragBinding: FragmentCourseBinding? = null
     // This property is only valid between onCreateView and onDestroyView.
     private val fragBinding get() = _fragBinding!!
-    //lateinit var navController: NavController
     private lateinit var courseViewModel: CourseViewModel
+    private val playedViewModel: PlayedViewModel by activityViewModels()
+    private val loggedInViewModel : LoggedInViewModel by activityViewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+                              savedInstanceState: Bundle?): View? {
         _fragBinding = FragmentCourseBinding.inflate(inflater, container, false)
         val root = fragBinding.root
-        activity?.title = getString(R.string.action_course)
         setupMenu()
         courseViewModel = ViewModelProvider(this).get(CourseViewModel::class.java)
         courseViewModel.observableStatus.observe(viewLifecycleOwner, Observer {
@@ -51,7 +56,37 @@ class CourseFragment : Fragment() {
             fragBinding.paymentAmount.setText("$newVal")
         }
         setButtonListener(fragBinding)
-        return root
+
+        return root;
+    }
+
+    private fun render(status: Boolean) {
+        when (status) {
+            true -> {
+                view?.let {
+                    //Uncomment this if you want to immediately return to Played
+                    //findNavController().popBackStack()
+                }
+            }
+            false -> Toast.makeText(context,getString(R.string.golfcourseError),Toast.LENGTH_LONG).show()
+        }
+    }
+
+    fun setButtonListener(layout: FragmentCourseBinding) {
+        layout.courseButton.setOnClickListener {
+            val amount = if (layout.paymentAmount.text.isNotEmpty())
+                layout.paymentAmount.text.toString().toInt() else layout.amountPicker.value
+            if(totalCoursed >= layout.progressBar.max)
+                Toast.makeText(context,"Course Amount Exceeded!", Toast.LENGTH_LONG).show()
+            else {
+                val paymentmethod = if(layout.paymentMethod.checkedRadioButtonId == R.id.Direct) "Direct" else "Paypal"
+                totalCoursed += amount
+                layout.totalSoFar.text = String.format(getString(R.string.totalSoFar),totalCoursed)
+                layout.progressBar.progress = totalCoursed
+                courseViewModel.addGolfcourse(loggedInViewModel.liveFirebaseUser,
+                    GolfcourseModel(paymentmethod = paymentmethod,amount = amount,
+                        email = loggedInViewModel.liveFirebaseUser.value?.email!!)) }
+        }
     }
 
     private fun setupMenu() {
@@ -72,34 +107,6 @@ class CourseFragment : Fragment() {
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
-    private fun render(status: Boolean) {
-        when (status) {
-            true -> {
-                view?.let {
-                    //Uncomment this if you want to immediately return to Played
-                    //findNavController().popBackStack()
-                }
-            }
-            false -> Toast.makeText(context,getString(R.string.golfcourseError), Toast.LENGTH_LONG).show()
-        }
-    }
-
-    fun setButtonListener(layout: FragmentCourseBinding) {
-        layout.courseButton.setOnClickListener {
-            val amount = if (layout.paymentAmount.text.isNotEmpty())
-                layout.paymentAmount.text.toString().toInt() else layout.amountPicker.value
-            if(totalCoursed >= layout.progressBar.max)
-                Toast.makeText(context,"Course Amount Exceeded!", Toast.LENGTH_LONG).show()
-            else {
-                val paymentmethod = if(layout.paymentMethod.checkedRadioButtonId == R.id.Direct) "Direct" else "Paypal"
-                totalCoursed += amount
-                layout.totalSoFar.text = getString(R.string.totalSoFar,totalCoursed)
-                layout.progressBar.progress = totalCoursed
-                courseViewModel.addGolfcourse(GolfcourseModel(paymentmethod = paymentmethod,amount = amount))
-            }
-        }
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _fragBinding = null
@@ -107,11 +114,8 @@ class CourseFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        val playedViewModel = ViewModelProvider(this).get(PlayedViewModel::class.java)
-        playedViewModel.observableGolfcoursesList.observe(viewLifecycleOwner, Observer {
-            totalCoursed  = playedViewModel.observableGolfcoursesList.value!!.sumOf { it.amount }
-        })
+        totalCoursed = playedViewModel.observableGolfcoursesList.value!!.sumOf { it.amount }
         fragBinding.progressBar.progress = totalCoursed
-        fragBinding.totalSoFar.text = getString(R.string.totalSoFar,totalCoursed )
+        fragBinding.totalSoFar.text = String.format(getString(R.string.totalSoFar),totalCoursed)
     }
 }

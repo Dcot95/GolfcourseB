@@ -47,6 +47,6 @@
             app:destination="@id/playedFragment" />
         <argument
             android:name="golfcourseid"
-            app:argType="long" />
+            app:argType="string" />
     </fragment>
 </navigation>
