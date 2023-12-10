@@ -6,29 +6,65 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import ie.wit.golfcourseb.R
+import ie.wit.golfcourseb.databinding.FragmentGolfcourseDetailBinding
+import ie.wit.golfcourseb.ui.auth.LoggedInViewModel
+import ie.wit.golfcourseb.ui.played.PlayedViewModel
+import timber.log.Timber
 
-class GolfcourseDetailFragment : Fragment() {
-    companion object {
-        fun newInstance() = GolfcourseDetailFragment()
-    }
 
-    private lateinit var viewModel: GolfcourseDetailViewModel
+class DonationDetailFragment : Fragment() {
+
+    private lateinit var detailViewModel: GolfcourseDetailViewModel
     private val args by navArgs<GolfcourseDetailFragmentArgs>()
+    private var _fragBinding: FragmentGolfcourseDetailBinding? = null
+    private val fragBinding get() = _fragBinding!!
+    private val loggedInViewModel : LoggedInViewModel by activityViewModels()
+    private val playedViewModel : PlayedViewModel by activityViewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?
     ): View? {
+        _fragBinding = FragmentGolfcourseDetailBinding.inflate(inflater, container, false)
+        val root = fragBinding.root
 
-        val view = inflater.inflate(R.layout.fragment_golfcourse_detail, container, false)
+        detailViewModel = ViewModelProvider(this).get(GolfcourseDetailViewModel::class.java)
+        detailViewModel.observableGolfcourse.observe(viewLifecycleOwner, Observer { render() })
 
-        Toast.makeText(context,"Golfcourse ID Selected : ${args.golfcourseid}", Toast.LENGTH_LONG).show()
+        fragBinding.editGolfcourseButton.setOnClickListener {
+            detailViewModel.updateGolfcourse(loggedInViewModel.liveFirebaseUser.value?.uid!!,
+                args.golfcourseid, fragBinding.golfcoursevm?.observableGolfcourse!!.value!!)
+            findNavController().navigateUp()
+        }
 
-        return view
+        fragBinding.deleteGolfcourseButton.setOnClickListener {
+            playedViewModel.delete(loggedInViewModel.liveFirebaseUser.value?.email!!,
+                detailViewModel.observableGolfcourse.value?.uid!!)
+            findNavController().navigateUp()
+        }
+
+        return root
     }
 
+    private fun render() {
+        fragBinding.editMessage.setText("A Message")
+        fragBinding.editUpvotes.setText("0")
+        fragBinding.golfcoursevm = detailViewModel
+        Timber.i("Retrofit fragBinding.golfcoursevm == $fragBinding.golfcoursevm")
+    }
 
+    override fun onResume() {
+        super.onResume()
+        detailViewModel.getGolfcourse(loggedInViewModel.liveFirebaseUser.value?.uid!!,
+            args.golfcourseid)
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _fragBinding = null
+    }
 }

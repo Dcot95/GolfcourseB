@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "407683825455",
+    "firebase_url": "https://golfcourseb-68a35-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "golfcourseb-68a35",
+    "storage_bucket": "golfcourseb-68a35.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:407683825455:android:7810fc04b31ffb77ef6bda",
+        "android_client_info": {
+          "package_name": "ie.wit.golfcourseb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUVfy65i3rsynbfV_NgeYcdrzTsWvEEBI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
