@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -98,6 +99,16 @@ class PlayedFragment : Fragment(), GolfcourseClickListener {
 
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.menu_played, menu)
+
+                val item = menu.findItem(R.id.toggleGolfcourses) as MenuItem
+                item.setActionView(R.layout.togglebutton_layout)
+                val toggleGolfcourses: SwitchCompat = item.actionView!!.findViewById(R.id.toggleButton)
+                toggleGolfcourses.isChecked = false
+
+                toggleGolfcourses.setOnCheckedChangeListener { _, isChecked ->
+                    if (isChecked) playedViewModel.loadAll()
+                    else playedViewModel.load()
+                }
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -109,7 +120,8 @@ class PlayedFragment : Fragment(), GolfcourseClickListener {
     }
 
     private fun render(golfcoursesList: ArrayList<GolfcourseModel>) {
-        fragBinding.recyclerView.adapter = GolfcourseAdapter(golfcoursesList,this)
+        fragBinding.recyclerView.adapter = GolfcourseAdapter(golfcoursesList,this,
+            playedViewModel.readOnly.value!!)
         if (golfcoursesList.isEmpty()) {
             fragBinding.recyclerView.visibility = View.GONE
             fragBinding.golfcoursesNotFound.visibility = View.VISIBLE
@@ -121,14 +133,18 @@ class PlayedFragment : Fragment(), GolfcourseClickListener {
 
     override fun onGolfcourseClick(golfcourse: GolfcourseModel) {
         val action = PlayedFragmentDirections.actionPlayedFragmentToGolfcourseDetailFragment(golfcourse.uid!!)
-        findNavController().navigate(action)
+        if(!playedViewModel.readOnly.value!!)
+            findNavController().navigate(action)
     }
 
     private fun setSwipeRefresh() {
         fragBinding.swiperefresh.setOnRefreshListener {
             fragBinding.swiperefresh.isRefreshing = true
             showLoader(loader,"Downloading Golfcourses")
-            playedViewModel.load()
+            if(playedViewModel.readOnly.value!!)
+                playedViewModel.loadAll()
+            else
+                playedViewModel.load()
         }
     }
 

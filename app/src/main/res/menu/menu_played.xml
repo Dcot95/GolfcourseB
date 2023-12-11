@@ -7,4 +7,9 @@
         android:orderInCategory="100"
         android:title="@string/action_course"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/toggleGolfcourses"
+        android:title=""
+        app:actionLayout="@layout/togglebutton_layout"
+        app:showAsAction="always" />
 </menu>

@@ -2,11 +2,7 @@ package ie.wit.golfcourseb.firebase
 
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import ie.wit.golfcourseb.models.GolfcourseModel
 import ie.wit.golfcourseb.models.GolfcourseStore
 import timber.log.Timber
@@ -16,7 +12,25 @@ object FirebaseDBManager : GolfcourseStore {
     var database: DatabaseReference = FirebaseDatabase.getInstance().reference
 
     override fun findAll(golfcoursesList: MutableLiveData<List<GolfcourseModel>>) {
-        TODO("Not yet implemented")
+        database.child("golfcourses")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+                    Timber.i("Firebase Golfcourse error : ${error.message}")
+                }
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val localList = ArrayList<GolfcourseModel>()
+                    val children = snapshot.children
+                    children.forEach {
+                        val golfcourse = it.getValue(GolfcourseModel::class.java)
+                        localList.add(golfcourse!!)
+                    }
+                    database.child("golfcourses")
+                        .removeEventListener(this)
+
+                    golfcoursesList.value = localList
+                }
+            })
     }
 
     override fun findAll(userid: String, golfcoursesList: MutableLiveData<List<GolfcourseModel>>) {
@@ -90,5 +104,26 @@ object FirebaseDBManager : GolfcourseStore {
         childUpdate["user-golfcourses/$userid/$golfcourseid"] = golfcourseValues
 
         database.updateChildren(childUpdate)
+    }
+
+    fun updateImageRef(userid: String,imageUri: String) {
+
+        val userGolfcoures = database.child("user-golfcourses").child(userid)
+        val allGolfcourses = database.child("golfcourses")
+
+        userGolfcoures.addListenerForSingleValueEvent(
+            object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {}
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    snapshot.children.forEach {
+                        //Update Users imageUri
+                        it.ref.child("profilepic").setValue(imageUri)
+                        //Update all golfcourses that match 'it'
+                        val golfcourse = it.getValue(GolfcourseModel::class.java)
+                        allGolfcourses.child(golfcourse!!.uid!!)
+                            .child("profilepic").setValue(imageUri)
+                    }
+                }
+            })
     }
 }
