@@ -11,8 +11,9 @@ data class GolfcourseModel(
     var uid: String? = "",
     var paymentmethod: String = "N/A",
     var amount: Int = 0,
-    var message: String = "a message",
+    var message: String = "Homer for President!",
     var upvotes: Int = 0,
+    var profilepic: String = "",
     var email: String? = "joe@bloggs.com")
     : Parcelable
 {
@@ -24,6 +25,7 @@ data class GolfcourseModel(
             "amount" to amount,
             "message" to message,
             "upvotes" to upvotes,
+            "profilepic" to profilepic,
             "email" to email
         )
     }

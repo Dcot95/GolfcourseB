@@ -13,6 +13,7 @@ class PlayedViewModel : ViewModel() {
 
     private val golfcoursesList =
         MutableLiveData<List<GolfcourseModel>>()
+    var readOnly = MutableLiveData(false)
 
     val observableGolfcoursesList: LiveData<List<GolfcourseModel>>
         get() = golfcoursesList
@@ -24,11 +25,23 @@ class PlayedViewModel : ViewModel() {
     fun load() {
         try {
             //GolfcourseManager.findAll(liveFirebaseUser.value?.email!!, golfcoursesList)
+            readOnly.value = false
             FirebaseDBManager.findAll(liveFirebaseUser.value?.uid!!,golfcoursesList)
             Timber.i("Played Load Success : ${golfcoursesList.value.toString()}")
         }
         catch (e: Exception) {
             Timber.i("Played Load Error : $e.message")
+        }
+    }
+
+    fun loadAll() {
+        try {
+            readOnly.value = true
+            FirebaseDBManager.findAll(golfcoursesList)
+            Timber.i("Played LoadAll Success : ${golfcoursesList.value.toString()}")
+        }
+        catch (e: Exception) {
+            Timber.i("Played LoadAll Error : $e.message")
         }
     }
 

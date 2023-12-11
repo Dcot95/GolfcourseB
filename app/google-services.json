@@ -13,7 +13,20 @@
           "package_name": "ie.wit.golfcourseb"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "407683825455-022mchkcohb8i29n7s4f73t8ksau0do0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ie.wit.golfcourseb",
+            "certificate_hash": "0017fa3f8da0149874b26c17e3b2e7edbb530c42"
+          }
+        },
+        {
+          "client_id": "407683825455-j0i962fl6epl61529rsesf42fee7h6li.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBUVfy65i3rsynbfV_NgeYcdrzTsWvEEBI"
@@ -21,7 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "407683825455-j0i962fl6epl61529rsesf42fee7h6li.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

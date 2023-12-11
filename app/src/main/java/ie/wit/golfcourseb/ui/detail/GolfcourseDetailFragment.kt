@@ -16,7 +16,7 @@ import ie.wit.golfcourseb.ui.played.PlayedViewModel
 import timber.log.Timber
 
 
-class DonationDetailFragment : Fragment() {
+class GolfcourseDetailFragment : Fragment() {
 
     private lateinit var detailViewModel: GolfcourseDetailViewModel
     private val args by navArgs<GolfcourseDetailFragmentArgs>()

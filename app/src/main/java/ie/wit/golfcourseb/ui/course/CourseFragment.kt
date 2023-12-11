@@ -1,18 +1,13 @@
 package ie.wit.golfcourseb.ui.course
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -22,6 +17,7 @@ import ie.wit.golfcourseb.databinding.FragmentCourseBinding
 import ie.wit.golfcourseb.models.GolfcourseModel
 import ie.wit.golfcourseb.ui.auth.LoggedInViewModel
 import ie.wit.golfcourseb.ui.played.PlayedViewModel
+import timber.log.Timber
 
 class CourseFragment : Fragment() {
 
