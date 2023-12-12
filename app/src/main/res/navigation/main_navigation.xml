@@ -49,4 +49,13 @@
             android:name="golfcourseid"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="ie.wit.golfcourseb.ui.map.MapsFragment"
+        android:label="Golfcourse Map"
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_mapsFragment_to_golfcourseDetailFragment"
+            app:destination="@id/golfcourseDetailFragment" />
+    </fragment>
 </navigation>

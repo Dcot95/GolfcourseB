@@ -16,6 +16,7 @@ import ie.wit.golfcourseb.R
 import ie.wit.golfcourseb.databinding.FragmentCourseBinding
 import ie.wit.golfcourseb.models.GolfcourseModel
 import ie.wit.golfcourseb.ui.auth.LoggedInViewModel
+import ie.wit.golfcourseb.ui.map.MapsViewModel
 import ie.wit.golfcourseb.ui.played.PlayedViewModel
 import timber.log.Timber
 
@@ -28,6 +29,7 @@ class CourseFragment : Fragment() {
     private lateinit var courseViewModel: CourseViewModel
     private val playedViewModel: PlayedViewModel by activityViewModels()
     private val loggedInViewModel : LoggedInViewModel by activityViewModels()
+    private val mapsViewModel: MapsViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +70,7 @@ class CourseFragment : Fragment() {
         }
     }
 
-    fun setButtonListener(layout: FragmentCourseBinding) {
+    private fun setButtonListener(layout: FragmentCourseBinding) {
         layout.courseButton.setOnClickListener {
             val amount = if (layout.paymentAmount.text.isNotEmpty())
                 layout.paymentAmount.text.toString().toInt() else layout.amountPicker.value
@@ -80,8 +82,11 @@ class CourseFragment : Fragment() {
                 layout.totalSoFar.text = String.format(getString(R.string.totalSoFar),totalCoursed)
                 layout.progressBar.progress = totalCoursed
                 courseViewModel.addGolfcourse(loggedInViewModel.liveFirebaseUser,
-                    GolfcourseModel(paymentmethod = paymentmethod,amount = amount,
-                        email = loggedInViewModel.liveFirebaseUser.value?.email!!)) }
+                    GolfcourseModel(paymentmethod = paymentmethod, amount = amount,
+                        email = loggedInViewModel.liveFirebaseUser.value?.email!!,
+                        latitude = mapsViewModel.currentLocation.value!!.latitude,
+                        longitude = mapsViewModel.currentLocation.value!!.longitude))
+            }
         }
     }
 

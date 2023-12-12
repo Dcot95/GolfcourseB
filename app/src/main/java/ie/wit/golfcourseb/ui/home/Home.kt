@@ -1,6 +1,8 @@
 package ie.wit.golfcourseb.ui.home
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
@@ -8,6 +10,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -26,9 +29,8 @@ import ie.wit.golfcourseb.databinding.NavHeaderBinding
 import ie.wit.golfcourseb.firebase.FirebaseImageManager
 import ie.wit.golfcourseb.ui.auth.LoggedInViewModel
 import ie.wit.golfcourseb.ui.auth.Login
-import ie.wit.golfcourseb.utils.customTransformation
-import ie.wit.golfcourseb.utils.readImageUri
-import ie.wit.golfcourseb.utils.showImagePicker
+import ie.wit.golfcourseb.ui.map.MapsViewModel
+import ie.wit.golfcourseb.utils.*
 import timber.log.Timber
 
 class Home : AppCompatActivity() {
@@ -40,6 +42,7 @@ class Home : AppCompatActivity() {
     private lateinit var loggedInViewModel : LoggedInViewModel
     private lateinit var headerView : View
     private lateinit var intentLauncher : ActivityResultLauncher<Intent>
+    private val mapsViewModel : MapsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,12 +59,16 @@ class Home : AppCompatActivity() {
         // menu should be considered as top level destinations.
 
         appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.courseFragment, R.id.playedFragment, R.id.aboutFragment), drawerLayout)
+            R.id.courseFragment, R.id.playedFragment,R.id.mapsFragment, R.id.aboutFragment), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         val navView = homeBinding.navView
         navView.setupWithNavController(navController)
         initNavHeader()
+
+        if(checkLocationPermissions(this)) {
+            mapsViewModel.updateCurrentLocation()
+        }
 //        navController.addOnDestinationChangedListener { _, destination, arguments ->
 //            when(destination.id) {
 //                R.id.playedFragment -> {
@@ -165,5 +172,20 @@ class Home : AppCompatActivity() {
                     RESULT_CANCELED -> { } else -> { }
                 }
             }
+    }
+
+    @SuppressLint("MissingPermission")
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (isPermissionGranted(requestCode, grantResults))
+            mapsViewModel.updateCurrentLocation()
+        else {
+            // permissions denied, so use a default location
+            mapsViewModel.currentLocation.value = Location("Default").apply {
+                latitude = 52.245696
+                longitude = -7.139102
+            }
+        }
+        Timber.i("LOC : %s", mapsViewModel.currentLocation.value)
     }
 }
