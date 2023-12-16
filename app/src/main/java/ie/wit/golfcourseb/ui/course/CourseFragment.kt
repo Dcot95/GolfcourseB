@@ -77,12 +77,17 @@ class CourseFragment : Fragment() {
             if(totalCoursed >= layout.progressBar.max)
                 Toast.makeText(context,"Course Amount Exceeded!", Toast.LENGTH_LONG).show()
             else {
-                val paymentmethod = if(layout.paymentMethod.checkedRadioButtonId == R.id.Direct) "Direct" else "Paypal"
+                val typeOfCourse = when (layout.typeOfCourse.checkedRadioButtonId) {
+                    R.id.Parkland -> "Parkland"
+                    R.id.Links -> "Links"
+                    R.id.Sandbelt -> "Sandbelt"
+                    else -> "Stadium"
+                }
                 totalCoursed += amount
                 layout.totalSoFar.text = String.format(getString(R.string.totalSoFar),totalCoursed)
                 layout.progressBar.progress = totalCoursed
                 courseViewModel.addGolfcourse(loggedInViewModel.liveFirebaseUser,
-                    GolfcourseModel(paymentmethod = paymentmethod, amount = amount,
+                    GolfcourseModel(typeOfCourse = typeOfCourse, amount = amount,
                         email = loggedInViewModel.liveFirebaseUser.value?.email!!,
                         latitude = mapsViewModel.currentLocation.value!!.latitude,
                         longitude = mapsViewModel.currentLocation.value!!.longitude))

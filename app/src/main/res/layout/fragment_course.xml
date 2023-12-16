@@ -66,9 +66,9 @@
         app:layout_constraintVertical_bias="0.948" />
 
     <RadioGroup
-        android:id="@+id/paymentMethod"
-        android:layout_width="181dp"
-        android:layout_height="128dp"
+        android:id="@+id/typeOfCourse"
+        android:layout_width="175dp"
+        android:layout_height="194dp"
         android:layout_above="@+id/progressBar"
         android:layout_below="@+id/courseSubtitle"
         android:layout_alignParentStart="true"
@@ -85,18 +85,32 @@
         app:layout_constraintVertical_bias="0.276">
 
         <RadioButton
-            android:id="@+id/PayPal"
+            android:id="@+id/Links"
             android:layout_width="97dp"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="@string/paypal" />
+            android:text="@string/links" />
 
         <RadioButton
-            android:id="@+id/Direct"
+            android:id="@+id/Parkland"
             android:layout_width="97dp"
             android:layout_height="wrap_content"
             android:checked="false"
-            android:text="@string/direct" />
+            android:text="@string/parkland" />
+
+        <RadioButton
+            android:id="@+id/Stadium"
+            android:layout_width="97dp"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="@string/stadium" />
+
+        <RadioButton
+            android:id="@+id/Sandbelt"
+            android:layout_width="97dp"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="@string/sandbelt" />
     </RadioGroup>
 
     <NumberPicker
