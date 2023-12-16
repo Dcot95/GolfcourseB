@@ -25,7 +25,7 @@
 
     <string name="action_about">About Us</string>
     <string name="aboutus_title">Homer for President !!</string>
-    <string name="aboutus_message">Hi, I\'m Homer\n\nPlease vote for me.\n\n Please Please Please Please!!</string>
+    <string name="aboutus_message">Hello,\n this is my golfcourse app\n Users can enter in details\n about the courses theyve played</string>
 
     <string name="golfcoursesNotFound">No Golfcourses Yet…\nGo Make a Golfcourse!</string>
     <string name="golfcourseError">Error : Couldn\'t Make a Golfcourse…</string>
