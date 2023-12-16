@@ -34,7 +34,7 @@
     <string name="golfcourseDetails">Golfcourse Details</string>
 
     <string name="amt">Amount :</string>
-    <string name="payment">Payment :</string>
+    <string name="type">Type :</string>
     <string name="message">Message :</string>
     <string name="upvotes">UpVotes :</string>
     <string name="update">Update</string>
