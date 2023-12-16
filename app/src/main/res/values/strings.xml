@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">GolfcourseB</string>
     <string name="courseTitle">Welcome Homer</string>
-    <string name="courseSubtitle">Please Give Generously</string>
+    <string name="courseSubtitle">Type of course</string>
     <string name="courseButton">Course</string>
-    <string name="paypal">PayPal</string>
-    <string name="direct">Direct</string>
+    <string name="links">Links</string>
+    <string name="parkland">Parkland</string>
+    <string name="stadium">Stadium</string>
+    <string name="sandbelt">Sandbelt </string>
     <string name="amount">Amount</string>
     <string name="total">Total so Far</string>
     <string name="totalSoFar">$%d</string>
@@ -24,7 +26,7 @@
     <string name="nav_header_desc">Navigation header</string>
 
     <string name="action_about">About Us</string>
-    <string name="aboutus_title">Homer for President !!</string>
+    <string name="aboutus_title">About Golfcourse App</string>
     <string name="aboutus_message">Hello,\n this is my golfcourse app\n Users can enter in details\n about the courses theyve played</string>
 
     <string name="golfcoursesNotFound">No Golfcourses Yet…\nGo Make a Golfcourse!</string>

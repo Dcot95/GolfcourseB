@@ -9,7 +9,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class GolfcourseModel(
     var uid: String? = "",
-    var paymentmethod: String = "N/A",
+    var typeOfCourse: String = "N/A",
     var amount: Int = 0,
     var message: String = "Homer for President!",
     var upvotes: Int = 0,
@@ -23,7 +23,7 @@ data class GolfcourseModel(
     fun toMap(): Map<String, Any?> {
         return mapOf(
             "uid" to uid,
-            "paymentmethod" to paymentmethod,
+            "typeOfCourse" to typeOfCourse,
             "amount" to amount,
             "message" to message,
             "upvotes" to upvotes,
