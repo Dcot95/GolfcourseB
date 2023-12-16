@@ -120,7 +120,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:layout_marginRight="8dp"
-            android:text="@string/payment"
+            android:text="@string/type"
             android:textAlignment="textEnd"
             android:textColor="@color/black"
             android:textSize="24sp"
