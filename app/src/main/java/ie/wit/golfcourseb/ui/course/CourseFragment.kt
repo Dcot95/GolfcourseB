@@ -90,6 +90,7 @@ class CourseFragment : Fragment() {
                     R.id.Sandbelt -> "Sandbelt"
                     else -> "Stadium"
                 }
+                val description = layout.description.text.toString()
                 val rating = layout.ratingBar.rating
                 totalCoursed += amount
                 layout.totalSoFar.text = String.format(getString(R.string.totalSoFar),totalCoursed)
@@ -97,6 +98,7 @@ class CourseFragment : Fragment() {
                 courseViewModel.addGolfcourse(loggedInViewModel.liveFirebaseUser,
                     GolfcourseModel(typeOfCourse = typeOfCourse, amount = amount,
                         rating =currentRating,
+                        description = description,
                         email = loggedInViewModel.liveFirebaseUser.value?.email!!,
                         latitude = mapsViewModel.currentLocation.value!!.latitude,
                         longitude = mapsViewModel.currentLocation.value!!.longitude))
