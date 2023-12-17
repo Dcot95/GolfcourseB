@@ -50,7 +50,7 @@ class GolfcourseDetailFragment : Fragment() {
     }
 
     private fun render() {
-        fragBinding.editMessage.setText("A Message")
+        fragBinding.editDescription.setText("Description")
         fragBinding.golfcoursevm = detailViewModel
         Timber.i("Retrofit fragBinding.golfcoursevm == $fragBinding.golfcoursevm")
     }
