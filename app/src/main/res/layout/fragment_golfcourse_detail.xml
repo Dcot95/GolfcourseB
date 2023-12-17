@@ -31,20 +31,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="8dp"
-            android:text="@string/upvotes"
-            android:textAlignment="textEnd"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toStartOf="@+id/editUpvotes"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <EditText
             android:id="@+id/editMessage"
@@ -72,18 +58,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editAmount" />
 
-        <EditText
-            android:id="@+id/editUpvotes"
-            android:layout_width="210dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="4dp"
-            android:ems="10"
-            android:inputType="number"
-            android:textSize="24sp"
-            android:text="@={``+ golfcoursevm.observableGolfcourse.upvotes}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editMessage" />
 
         <EditText
             android:id="@+id/editAmount"
@@ -134,8 +108,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:rating="@={golfcoursevm.observableGolfcourse.rating}"
-            app:layout_constraintTop_toBottomOf="@id/editUpvotes"
-            app:layout_constraintEnd_toEndOf="@id/editUpvotes"
+            app:layout_constraintTop_toBottomOf="@id/editMessage"
+            app:layout_constraintEnd_toEndOf="@id/editMessage"
         />
 
         <Button
