@@ -92,6 +92,7 @@ class CourseFragment : Fragment() {
                 }
                 val description = layout.description.text.toString()
                 val rating = layout.ratingBar.rating
+                val name = layout.name.text.toString()
                 totalCoursed += amount
                 layout.totalSoFar.text = String.format(getString(R.string.totalSoFar),totalCoursed)
                 layout.progressBar.progress = totalCoursed
@@ -99,6 +100,7 @@ class CourseFragment : Fragment() {
                     GolfcourseModel(typeOfCourse = typeOfCourse, amount = amount,
                         rating =currentRating,
                         description = description,
+                        name = name,
                         email = loggedInViewModel.liveFirebaseUser.value?.email!!,
                         latitude = mapsViewModel.currentLocation.value!!.latitude,
                         longitude = mapsViewModel.currentLocation.value!!.longitude))

@@ -18,7 +18,7 @@
         <RelativeLayout
             android:id="@+id/cardGolfcourse"
             android:layout_width="match_parent"
-            android:layout_height="195dp"
+            android:layout_height="215dp"
             android:padding="16dp">
 
             <ImageView
@@ -79,6 +79,19 @@
                 android:layout_toEndOf="@+id/imageIcon"
                 android:numStars="5"
                 android:rating="@{golfcourse.rating}" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ratingBar"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@+id/imageIcon"
+                android:text="@{golfcourse.name}"
+                android:textColor="@color/color_primary"
+                android:textSize="20sp"
+                tools:text="name" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

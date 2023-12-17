@@ -45,6 +45,34 @@
             app:layout_constraintTop_toBottomOf="@+id/editPaymenttype" />
 
         <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/hint_golfcourseName"
+            android:textAlignment="textEnd"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/editName"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+
+        <EditText
+            android:id="@+id/editName"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="4dp"
+            android:textAlignment="viewStart"
+            android:text="@={golfcoursevm.observableGolfcourse.name}"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editDescription" />
+
+        <TextView
             android:id="@+id/editPaymenttype"
             android:layout_width="212dp"
             android:layout_height="50dp"
@@ -108,8 +136,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:rating="@={golfcoursevm.observableGolfcourse.rating}"
-            app:layout_constraintTop_toBottomOf="@id/editDescription"
-            app:layout_constraintEnd_toEndOf="@id/editDescription"
+            app:layout_constraintTop_toBottomOf="@id/editName"
+            app:layout_constraintEnd_toEndOf="@id/editName"
         />
 
         <Button
