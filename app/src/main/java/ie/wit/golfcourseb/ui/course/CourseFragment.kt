@@ -49,7 +49,7 @@ class CourseFragment : Fragment() {
 
         fragBinding.progressBar.max = 10000
         fragBinding.amountPicker.minValue = 1
-        fragBinding.amountPicker.maxValue = 1000
+        fragBinding.amountPicker.maxValue = 200
 
         fragBinding.amountPicker.setOnValueChangedListener { _, _, newVal ->
             //Display the newly selected number to paymentAmount
