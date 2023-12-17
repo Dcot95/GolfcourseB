@@ -129,6 +129,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:rating="@={golfcoursevm.observableGolfcourse.rating}"
+            app:layout_constraintTop_toBottomOf="@id/editUpvotes"
+            app:layout_constraintEnd_toEndOf="@id/editUpvotes"
+        />
+
         <Button
             android:id="@+id/editGolfcourseButton"
             android:layout_width="0dp"

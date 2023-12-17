@@ -2,6 +2,7 @@ package ie.wit.golfcourseb.ui.course
 
 import android.os.Bundle
 import android.view.*
+import android.widget.RatingBar
 import android.widget.Toast
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -30,6 +31,7 @@ class CourseFragment : Fragment() {
     private val playedViewModel: PlayedViewModel by activityViewModels()
     private val loggedInViewModel : LoggedInViewModel by activityViewModels()
     private val mapsViewModel: MapsViewModel by activityViewModels()
+    private var currentRating: Float = 0.0f
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +54,11 @@ class CourseFragment : Fragment() {
         fragBinding.amountPicker.setOnValueChangedListener { _, _, newVal ->
             //Display the newly selected number to paymentAmount
             fragBinding.paymentAmount.setText("$newVal")
+        }
+
+        fragBinding.ratingBar.onRatingBarChangeListener = RatingBar.OnRatingBarChangeListener { _, rating, _ ->
+            // Handle the rating value. You can store it in a variable or directly use it when needed
+            currentRating = rating
         }
         setButtonListener(fragBinding)
 
@@ -83,11 +90,13 @@ class CourseFragment : Fragment() {
                     R.id.Sandbelt -> "Sandbelt"
                     else -> "Stadium"
                 }
+                val rating = layout.ratingBar.rating
                 totalCoursed += amount
                 layout.totalSoFar.text = String.format(getString(R.string.totalSoFar),totalCoursed)
                 layout.progressBar.progress = totalCoursed
                 courseViewModel.addGolfcourse(loggedInViewModel.liveFirebaseUser,
                     GolfcourseModel(typeOfCourse = typeOfCourse, amount = amount,
+                        rating =currentRating,
                         email = loggedInViewModel.liveFirebaseUser.value?.email!!,
                         latitude = mapsViewModel.currentLocation.value!!.latitude,
                         longitude = mapsViewModel.currentLocation.value!!.longitude))
