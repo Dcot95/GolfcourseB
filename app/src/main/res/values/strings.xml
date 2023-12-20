@@ -2,7 +2,7 @@
     <string name="app_name">GolfcourseB</string>
     <string name="courseTitle">Welcome To the Golfcourse App</string>
     <string name="courseSubtitle">Type of course</string>
-    <string name="courseButton">Course</string>
+    <string name="courseButton">Create</string>
     <string name="links">Links</string>
     <string name="parkland">Parkland</string>
     <string name="stadium">Stadium</string>
