@@ -47,7 +47,7 @@ class CourseFragment : Fragment() {
                 status -> status?.let { render(status) }
         })
 
-        fragBinding.progressBar.max = 10000
+     //   fragBinding.progressBar.max = 10000
         fragBinding.amountPicker.minValue = 1
         fragBinding.amountPicker.maxValue = 200
 
@@ -81,9 +81,9 @@ class CourseFragment : Fragment() {
         layout.courseButton.setOnClickListener {
             val amount = if (layout.paymentAmount.text.isNotEmpty())
                 layout.paymentAmount.text.toString().toInt() else layout.amountPicker.value
-            if(totalCoursed >= layout.progressBar.max)
-                Toast.makeText(context,"Course Amount Exceeded!", Toast.LENGTH_LONG).show()
-            else {
+          //  if(totalCoursed >= layout.progressBar.max)
+            //    Toast.makeText(context,"Course Amount Exceeded!", Toast.LENGTH_LONG).show()
+          //  else {
                 val typeOfCourse = when (layout.typeOfCourse.checkedRadioButtonId) {
                     R.id.Parkland -> "Parkland"
                     R.id.Links -> "Links"
@@ -93,18 +93,20 @@ class CourseFragment : Fragment() {
                 val description = layout.description.text.toString()
                 val rating = layout.ratingBar.rating
                 val name = layout.name.text.toString()
+                val datePlayed = layout.datePlayed.text.toString()
                 totalCoursed += amount
                 layout.totalSoFar.text = String.format(getString(R.string.totalSoFar),totalCoursed)
-                layout.progressBar.progress = totalCoursed
+              //  layout.progressBar.progress = totalCoursed
                 courseViewModel.addGolfcourse(loggedInViewModel.liveFirebaseUser,
                     GolfcourseModel(typeOfCourse = typeOfCourse, amount = amount,
                         rating =currentRating,
                         description = description,
                         name = name,
+                        datePlayed = datePlayed,
                         email = loggedInViewModel.liveFirebaseUser.value?.email!!,
                         latitude = mapsViewModel.currentLocation.value!!.latitude,
                         longitude = mapsViewModel.currentLocation.value!!.longitude))
-            }
+         //   }
         }
     }
 
@@ -134,7 +136,7 @@ class CourseFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         totalCoursed = playedViewModel.observableGolfcoursesList.value!!.sumOf { it.amount }
-        fragBinding.progressBar.progress = totalCoursed
+     //   fragBinding.progressBar.progress = totalCoursed
         fragBinding.totalSoFar.text = String.format(getString(R.string.totalSoFar),totalCoursed)
     }
 }
