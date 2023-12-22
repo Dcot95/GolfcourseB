@@ -18,7 +18,7 @@
         <RelativeLayout
             android:id="@+id/cardGolfcourse"
             android:layout_width="match_parent"
-            android:layout_height="215dp"
+            android:layout_height="match_parent"
             android:padding="16dp">
 
             <ImageView
@@ -85,13 +85,24 @@
                 android:layout_width="190dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ratingBar"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginStart="124dp"
+                android:layout_marginTop="3dp"
                 android:layout_toEndOf="@+id/imageIcon"
                 android:text="@{golfcourse.name}"
                 android:textColor="@color/color_primary"
                 android:textSize="20sp"
                 tools:text="name" />
+
+            <TextView
+                android:id="@+id/datePlayed"
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/name"
+                android:layout_marginTop="-28dp"
+                android:text="@{golfcourse.datePlayed}"
+                android:textColor="@color/color_primary"
+                android:textSize="20sp"
+                tools:text="datePlayed" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

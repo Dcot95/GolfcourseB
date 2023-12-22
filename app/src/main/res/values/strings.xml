@@ -32,10 +32,11 @@
     <string name="golfcoursesNotFound">No Golfcourses Yet…\nGo Make a Golfcourse!</string>
     <string name="golfcourseError">Error : Couldn\'t Make a Golfcourse…</string>
     <string name="golfcourseDetails">Golfcourse Details</string>
-    <string name="hint_golfcourseName">Course Name</string>
+    <string name="hint_golfcourseName">Course Name :</string>
     <string name="amt">Amount :</string>
     <string name="type">Type :</string>
     <string name="description">Description :</string>
+    <string name="datePlayed">Date Played :</string>
     <string name="update">Update</string>
     <string name="delete">Delete</string>
 
